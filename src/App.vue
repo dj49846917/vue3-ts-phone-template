@@ -5,5 +5,9 @@
   <router-view />
 </template>
 
-<style>
+<style lang="scss">
+.container {
+  flex: 1;
+  background-color: #eeeeee;
+}
 </style>

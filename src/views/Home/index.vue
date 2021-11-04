@@ -1,37 +1,37 @@
 <template>
   <div>
-    {{ data.count }}
+    <div class="item">
+      <van-button type="primary" @click="goToPage('/list')">下拉刷新，上拉加载</van-button>
+      <van-button type="primary" @click="goToPage('/loadingmodal')">loading遮盖层</van-button>
+    </div>
   </div>
 </template>
 
-<script>
-import { onMounted, reactive } from "vue";
-import { useStore } from "vuex";
-import axios from "axios";
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router';
 
-export default {
+export default defineComponent({
   setup() {
-    const store = useStore();
-    console.log("store", store.state.user.num);
-    let data = reactive({
-      count: store.state.user.num,
-    });
-
-    onMounted(() => {
-      axios
-        .get("/api/columns?currentPage=1&pageSize=5")
-        .then((res) => {
-          console.log("res", res);
-        })
-        .catch((err) => {
-          console.log("err", err);
-        });
-    });
+    const router = useRouter();
+    function goToPage(path:string):void {
+      router.push(path)
+    }
     return {
-      data,
+      goToPage
     };
   },
-};
+})
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .van-button {
+    margin-top: 10px;
+  }
+}
+</style>

@@ -217,40 +217,40 @@
 
 ### vite生产环境中使用Mock
   1. 在src下新建mockProdServer.ts(名字无所谓), 把mock文件逐一引入
-    ```
-      //  mockProdServer.ts
-      import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer';
+      ```
+        //  mockProdServer.ts
+        import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer';
 
-      // 逐一导入您的mock.ts文件
-      import cartApi from '../mock/cart'
-      import categoryApi from '../mock/cateogry'
-      import goodsInfoApi from '../mock/goodsInfo'
-      import goodsListApi from '../mock/goodsList'
-      import homeApi from '../mock/home'
-      import loginApi from '../mock/login'
-      import miFamilyApi from '../mock/miFamily'
+        // 逐一导入您的mock.ts文件
+        import cartApi from '../mock/cart'
+        import categoryApi from '../mock/cateogry'
+        import goodsInfoApi from '../mock/goodsInfo'
+        import goodsListApi from '../mock/goodsList'
+        import homeApi from '../mock/home'
+        import loginApi from '../mock/login'
+        import miFamilyApi from '../mock/miFamily'
 
-      export function setupProdMockServer() {
-        createProdMockServer([...cartApi, ...categoryApi, ...goodsInfoApi, ...goodsListApi, ...homeApi, ...loginApi, ...miFamilyApi]);
-      }
-    ```
+        export function setupProdMockServer() {
+          createProdMockServer([...cartApi, ...categoryApi, ...goodsInfoApi, ...goodsListApi, ...homeApi, ...loginApi, ...miFamilyApi]);
+        }
+      ```
   2. 修改vite.config.ts，在plugins里面添加以下代码
-    ```
-      plugins: [
-        vue(),
-        viteMockServe({
-          // default
-          mockPath: 'mock',
-          localEnabled: command === 'serve',
-          prodEnabled: true,
-          //  这样可以控制关闭mock的时候不让mock打包到最终代码内
-          injectCode: `
-            import { setupProdMockServer } from './mockProdServer';
-            setupProdMockServer();
-          `,
-        }),
-      ],
-    ```
+      ```
+        plugins: [
+          vue(),
+          viteMockServe({
+            // default
+            mockPath: 'mock',
+            localEnabled: command === 'serve',
+            prodEnabled: true,
+            //  这样可以控制关闭mock的时候不让mock打包到最终代码内
+            injectCode: `
+              import { setupProdMockServer } from './mockProdServer';
+              setupProdMockServer();
+            `,
+          }),
+        ],
+      ```
 
 ## 在vite中使用多环境（非常重要！！）
   * 默认情况下，vite只支持`.env.development`和`.env.production`这两个环境文件(创建在根路径下)

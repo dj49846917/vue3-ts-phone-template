@@ -32,13 +32,13 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       host: 'localhost',
       port: Number(envInfo.VITE_APP_PORT), // 使用
       open: false,
-      proxy: {
-        '/api': {
-          target: 'http://api.vikingship.xyz/api',
-          changeOrigin: true,
-          rewrite: path => path.replace(/^\/api/, '')
-        }
-      }
+      // proxy: {
+      //   '/api': {
+      //     target: 'http://api.vikingship.xyz/api',
+      //     changeOrigin: true,
+      //     rewrite: path => path.replace(/^\/api/, '')
+      //   }
+      // }
     },
   };
 };
