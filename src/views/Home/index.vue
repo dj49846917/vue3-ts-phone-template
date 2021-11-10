@@ -5,6 +5,9 @@
       <van-button type="primary" @click="goToPage('/loadingmodal')">loading遮盖层</van-button>
       <van-button type="primary" @click="goToPage('/select')">下拉封装</van-button>
     </div>
+    <div class="item">
+      <van-button type="primary" @click="goToPage('/echarts')">echarts图表</van-button>
+    </div>
   </div>
 </template>
 

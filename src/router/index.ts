@@ -20,6 +20,11 @@ const routes = [
     path: '/select',
     name: 'SelectBox',
     component: () => import('@/views/Template/Vant/SelectBox/index.vue'), // 封装下拉选择框
+  },
+  {
+    path: '/echarts',
+    name: 'Echarts',
+    component: () => import('@/views/Template/Echarts/index.vue'), // 封装下拉选择框
   }
 ]
 

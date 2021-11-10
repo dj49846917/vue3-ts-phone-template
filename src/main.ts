@@ -6,5 +6,6 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 import "amfe-flexible/index.js"
 
+
 const app = createApp(App)
 app.use(router).use(store).use(Vant).mount('#app')
