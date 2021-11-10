@@ -39,15 +39,26 @@
 import { defineComponent, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 
+interface formState { // 表单字段
+  zjlx: string,
+  xsrs: string
+}
+
+interface modalState {
+  label: string,
+  key: string,
+  visible: boolean,
+  columns: any[]
+}
+
 export default defineComponent({
   setup() {
     const router = useRouter();
-
-    const form = reactive({
+    const form = reactive<formState>({
       zjlx: "", // 证件类型
       xsrs: "", // 学生人数
     });
-    const modalLabel = reactive({
+    const modalLabel = reactive<modalState>({
       // 弹出框的标题
       label: "",
       key: "", // 当前弹窗展开对应是哪个的字段
