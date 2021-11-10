@@ -29,8 +29,9 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       }
     },
     server: {
-      host: 'localhost',
-      port: Number(envInfo.VITE_APP_PORT), // 使用
+      host: '0.0.0.0',
+      port: 8080,
+      // port: Number(envInfo.VITE_APP_PORT), // 使用
       open: false,
       // proxy: {
       //   '/api': {

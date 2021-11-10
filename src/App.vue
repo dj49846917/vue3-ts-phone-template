@@ -6,8 +6,11 @@
 </template>
 
 <style lang="scss">
+html,body,#app,.container {
+  width: 100%;
+  height: 100%;
+}
 .container {
-  flex: 1;
   background-color: #eeeeee;
 }
 </style>

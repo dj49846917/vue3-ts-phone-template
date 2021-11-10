@@ -2,7 +2,7 @@
   <div class="container">
     <van-nav-bar
       title="上拉加载，下拉刷新"
-      left-arrow
+      left-arrow 
       @click-left="goBack()"
       class="nav"
     />

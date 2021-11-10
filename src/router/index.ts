@@ -15,6 +15,11 @@ const routes = [
     path: '/loadingmodal',
     name: 'LoadingModal',
     component: () => import('@/views/Template/Vant/LoadingModal/index.vue'), // 加载中的弹窗
+  },
+  {
+    path: '/select',
+    name: 'SelectBox',
+    component: () => import('@/views/Template/Vant/SelectBox/index.vue'), // 封装下拉选择框
   }
 ]
 
