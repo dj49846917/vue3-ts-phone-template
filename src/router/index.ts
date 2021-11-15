@@ -24,7 +24,12 @@ const routes = [
   {
     path: '/echarts',
     name: 'Echarts',
-    component: () => import('@/views/Template/Echarts/index.vue'), // 封装下拉选择框
+    component: () => import('@/views/Template/Echarts/index.vue'), // vue使用echarts
+  },
+  {
+    path: '/addresslist',
+    name: 'AddressList',
+    component: () => import('@/views/Template/Other/AddressList/index.vue'), // 通讯录
   }
 ]
 

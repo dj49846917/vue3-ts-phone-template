@@ -8,6 +8,9 @@
     <div class="item">
       <van-button type="primary" @click="goToPage('/echarts')">echarts图表</van-button>
     </div>
+    <div class="item">
+      <van-button type="primary" @click="goToPage('/addresslist')">通讯录</van-button>
+    </div>
   </div>
 </template>
 
