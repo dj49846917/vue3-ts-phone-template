@@ -26,7 +26,6 @@
           :class="item.latter === charVal ? 'active' : ''"
           @click="chooseItem(item.latter)"
           @touchstart="scrollStart"
-          @touchend="scrollEnd"
           @touchmove="scrollMove"
           v-for="(item, index) in data"
           :key="index"
@@ -61,6 +60,7 @@ export default defineComponent({
     }
     // 滚动
     const handerScroll = throttle((e: any) => {
+      // 实现思路：通过初始化时给列表中所有字母记录位置，在滚动时，判断当前滚动到顶部的距离<某个字母的当前位置，>=这个字母的前一个字母的当前位置
       info.data.forEach((item, index)=>{
         if(index > 0) {
           // @ts-ignore
@@ -117,12 +117,9 @@ export default defineComponent({
       touchStartIndex.value = info.data.findIndex(x=>x.latter === e.target.innerText)
       chooseItem(e.target.innerText)
     }
-    // 滑动结束事件
-    function scrollEnd(e: any) {
-      // chooseItem(e.target.innerText)
-    }
     // 滑动移动事件
     const scrollMove = throttle((e:any)=>{
+      // 思路：通过获取touchstart初始的位置pageY和移动是的pageY, 再除以每个字母的高度，就得到变化的下标
       const index = Math.ceil((e.changedTouches[0].pageY - posY.value) / charOneHeight.value)
       const newIndex = index + touchStartIndex.value
       chooseItem(info.data[newIndex].latter)
