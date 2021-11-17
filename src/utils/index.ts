@@ -79,3 +79,37 @@ export function getPointUrlParam(url: string, name: string) {
     return "";//如果此处只写return;则返回的是undefined
   }
 };
+
+// 函数节流
+export function throttle(fn: { apply: (arg0: any, arg1: IArguments) => void; }, interval: number | undefined) {
+  var last: number;
+  var timer: NodeJS.Timeout;
+  var interval = interval || 200;
+  return function () {
+    var th = this;
+    var args = arguments;
+    var now = +new Date();
+    if (last && now - last < interval) {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        last = now;
+        fn.apply(th, args);
+      }, interval);
+    } else {
+      last = now;
+      fn.apply(th, args);
+    }
+  }
+}
+
+// 防抖
+export function debounce(fn: { apply: (arg0: any, arg1: IArguments) => void; }, delay: number | undefined) {
+  let timeout: number | NodeJS.Timeout | null | undefined = null
+  return function () {
+    let args = arguments
+    timeout && window.clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      fn.apply(this, args)
+    }, delay)
+  }
+}

@@ -11,6 +11,6 @@ html,body,#app,.container {
   height: 100%;
 }
 .container {
-  background-color: #eeeeee;
+  background-color: #e8e8e8;
 }
 </style>
