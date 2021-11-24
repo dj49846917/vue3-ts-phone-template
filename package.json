@@ -5,7 +5,8 @@
     "dev": "vite",
     "dev:sit": "vite --mode sit",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "axios": "^0.24.0",

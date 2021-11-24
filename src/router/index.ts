@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 
 const routes = [
   {
@@ -39,7 +39,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory("/"), //history模式使用HTML5模式
+  history: createWebHashHistory(import.meta.env.VITE_APP_BASE), //history模式使用HTML5模式
   routes,
 });
 

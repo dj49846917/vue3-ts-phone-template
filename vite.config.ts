@@ -23,6 +23,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         `,
       }),
     ],
+    base: envInfo.VITE_APP_BASE,
     resolve: {
       alias: {
         '@': resolve(__dirname, "src") //设置别名
