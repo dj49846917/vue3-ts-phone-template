@@ -1,15 +1,16 @@
 <template>
   <div>
+    <h2>vant-ui部分</h2>
     <div class="item">
       <van-button type="primary" @click="goToPage('/list')">下拉刷新，上拉加载</van-button>
       <van-button type="primary" @click="goToPage('/loadingmodal')">loading遮盖层</van-button>
       <van-button type="primary" @click="goToPage('/select')">下拉封装</van-button>
     </div>
+    <h2>常用组件</h2>
     <div class="item">
       <van-button type="primary" @click="goToPage('/echarts')">echarts图表</van-button>
-    </div>
-    <div class="item">
       <van-button type="primary" @click="goToPage('/addresslist')">通讯录</van-button>
+      <van-button type="primary" @click="goToPage('/chat')">微信聊天</van-button>
     </div>
   </div>
 </template>
@@ -34,11 +35,10 @@ export default defineComponent({
 <style scoped lang="scss">
 .item {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   .van-button {
-    margin-top: 10px;
+    margin: 10px;
   }
 }
 </style>

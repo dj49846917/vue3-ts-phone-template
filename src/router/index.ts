@@ -30,6 +30,11 @@ const routes = [
     path: '/addresslist',
     name: 'AddressList',
     component: () => import('@/views/Template/Other/AddressList/index.vue'), // 通讯录
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: () => import('@/views/Template/Other/Chat/index.vue'), // 聊天
   }
 ]
 

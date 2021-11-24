@@ -134,7 +134,6 @@ export default defineComponent({
       resetTop,
       charVal,
       scrollStart,
-      scrollEnd,
       scrollMove,
       posY
     };
