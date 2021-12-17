@@ -534,4 +534,14 @@
   
   * 难点：
     1. 每次打开时，自动滑动到聊天的最底部
+        ```
+          # 通过获取dom的sccrollTop=scrollHeight
+            <div class="content" ref="main"></div>
+            
+            const main = ref();
+            onMounted(() => {
+              main.value.scrollTop = main.value.scrollHeight
+            });
+        ```
     2. 在输入和发送内容时，自动滑动到聊天的最底部
+    3. 在下面发送内容时，如何控制键盘的发送按钮

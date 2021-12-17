@@ -3,7 +3,7 @@
     <!-- 导航栏 -->
     <van-nav-bar class="nav" title="聊天" left-arrow @click-left="goBack()" />
     <!-- 内容区域 -->
-    <div class="content" ref="main">
+    <div :class="['content', { contentActive: isShowMenu }]" ref="main">
       <!-- 聊天列表 -->
       <div v-for="(item, index) in chatList" :key="index">
         <div class="talk left" v-if="item.user_id === 1">
@@ -21,39 +21,127 @@
       </div>
     </div>
     <!-- 底部输入框 -->
-    <div class="footer">
+    <div :class="['footer', { footerActive: isShowMenu }]">
       <span class="iconfont icon-yuyin" />
       <textarea v-model="message" />
       <span class="iconfont icon-biaoqing" />
-      <span class="iconfont icon-add" />
+      <van-button v-show="message" type="success" class="send" @click="sendMsg"
+        >发送</van-button
+      >
+      <span
+        v-show="!message"
+        class="iconfont icon-add"
+        @click="toggleShowMenu"
+      />
+    </div>
+    <div class="menu" v-if="isShowMenu">
+      <van-swipe
+      class="my-swipe"
+      indicator-color="white"
+    >
+      <van-swipe-item v-for="item in menuData" :key="item.index">
+        <div class="menu-item" v-for="it in item.menuInfo" :key="it.id">
+          <span :class="['iconfont', it.icon, 'icon']"></span>
+          <div>{{ it.text }}</div>
+        </div>
+      </van-swipe-item>
+    </van-swipe>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import {
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  toRefs,
+} from "vue";
 import { useRouter } from "vue-router";
-import { chatList } from "./data";
+import { chatList, menuList } from "./data";
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const message = ref("");
     const main = ref();
+    const timer = ref();
+    const data = reactive({
+      message: "",
+      chatList,
+      menuData: []
+    });
+    const isShowMenu = ref(false); // 是否展示更多菜单
     onMounted(() => {
       const dom = document.querySelector(".nav");
       if (dom) {
         main.value.style.top = dom.clientHeight + "px";
+        goToBottom();
       }
+
+      // 组装menu菜单数据
+      parseMenuData()
     });
+
+    // 清除定时器
+    onUnmounted(() => {
+      clearTimeout(timer.value);
+    });
+    // 点击更多按钮
+    function toggleShowMenu() {
+      isShowMenu.value = !isShowMenu.value;
+      goToBottom();
+    }
+
+    // 点击发送按钮
+    function sendMsg() {
+      const params = {
+        avatar: "#",
+        user_id: 2,
+        nickname: "自己",
+        type: "text",
+        data: data.message,
+      };
+      data.chatList.push(params);
+      goToBottom();
+    }
+
+    // 加载到底部
+    function goToBottom() {
+      timer.value = setTimeout(() => {
+        main.value.scrollTop = main.value.scrollHeight;
+      }, 400);
+      data.message = "";
+    }
+
+    // 封装菜单数据
+    function parseMenuData() {
+      const arrLength = Math.ceil(menuList.length / 8)
+      let n = 8 // 每页展示8个
+      if(arrLength > 0) {
+        for(let i =0; i<arrLength; i++) {
+          const obj = {
+            index: i,
+            menuInfo: []
+          }
+          let temp = menuList.slice(i*n, i*n+n)
+          obj.menuInfo = temp
+          data.menuData.push(obj)
+        }
+      }
+      console.log(data.menuData)
+    }
 
     function goBack() {
       router.back();
     }
     return {
+      ...toRefs(data),
       goBack,
-      message,
       main,
-      chatList,
+      sendMsg,
+      isShowMenu,
+      toggleShowMenu,
     };
   },
 });
@@ -162,6 +250,53 @@ export default defineComponent({
       outline: none;
       border: none;
       overflow-y: hidden;
+    }
+    .send {
+      height: 37px;
+      margin-right: 10px;
+    }
+  }
+  .footerActive {
+    bottom: 150px;
+    transition: all 0.3s ease;
+  }
+  .contentActive {
+    bottom: 200px;
+    transition: all 0.3s ease;
+  }
+  .menu {
+    width: 375px;
+    height: 150px;
+    position: fixed;
+    bottom: 0;
+    .my-swipe {
+      .van-swipe-item {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 10px 0;
+        .menu-item {
+          width: 58px;
+          height: 58px;
+          border-radius: 10px;
+          align-content: flex-start;
+          margin:0 15px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .icon {
+            font-size: 32px;
+          }
+          div {
+            font-size: 14px;
+          }
+        }
+      }
+      .van-swipe__indicators {
+        bottom: 0
+      }
     }
   }
 }
