@@ -35,6 +35,16 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: () => import('@/views/Template/Other/Chat/index.vue'), // 聊天
+  },
+  {
+    path: '/amap',
+    name: 'Amap',
+    component: () => import('@/views/Template/Other/Map/Amap/index.vue'), // 高德地图
+  },
+  {
+    path: '/bmap',
+    name: 'Bmap',
+    component: () => import('@/views/Template/Other/Map/Bmap/index.vue'), // 百度地图
   }
 ]
 

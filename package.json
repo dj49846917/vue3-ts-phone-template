@@ -9,6 +9,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "axios": "^0.24.0",
     "echarts": "^5.2.2",
     "mockjs": "^1.1.0",

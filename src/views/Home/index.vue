@@ -11,6 +11,8 @@
       <van-button type="primary" @click="goToPage('/echarts')">echarts图表</van-button>
       <van-button type="primary" @click="goToPage('/addresslist')">通讯录</van-button>
       <van-button type="primary" @click="goToPage('/chat')">微信聊天</van-button>
+      <van-button type="primary" @click="goToPage('/amap')">高德地图</van-button>
+      <van-button type="primary" @click="goToPage('/bmap')">百度地图</van-button>
     </div>
   </div>
 </template>
