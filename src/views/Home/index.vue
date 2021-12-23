@@ -11,8 +11,12 @@
       <van-button type="primary" @click="goToPage('/echarts')">echarts图表</van-button>
       <van-button type="primary" @click="goToPage('/addresslist')">通讯录</van-button>
       <van-button type="primary" @click="goToPage('/chat')">微信聊天</van-button>
-      <van-button type="primary" @click="goToPage('/amap')">高德地图</van-button>
       <van-button type="primary" @click="goToPage('/bmap')">百度地图</van-button>
+    </div>
+    <h2>高德地图</h2>
+    <div class="item">
+      <van-button type="primary" @click="goToPage('/amap')">高德地图</van-button>
+      <van-button type="primary" @click="goToPage('/amapLocation')">高德地图点击获取定位并描点</van-button>
     </div>
   </div>
 </template>

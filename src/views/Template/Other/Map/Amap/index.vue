@@ -34,6 +34,7 @@ export default defineComponent({
       })
         .then((AMap) => {
           map = new AMap.Map("myMap", {
+            viewMode:"3D",    //是否为3D地图模式
             resizeEnable: true,
           });
           AMap.plugin("AMap.Geolocation", function () {

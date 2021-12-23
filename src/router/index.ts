@@ -42,6 +42,11 @@ const routes = [
     component: () => import('@/views/Template/Other/Map/Amap/index.vue'), // 高德地图
   },
   {
+    path: '/amapLocation',
+    name: 'AmapLocation',
+    component: () => import('@/views/Template/Other/Map/Amap/getLocation.vue'), // 点击获取定位并描点
+  },
+  {
     path: '/bmap',
     name: 'Bmap',
     component: () => import('@/views/Template/Other/Map/Bmap/index.vue'), // 百度地图

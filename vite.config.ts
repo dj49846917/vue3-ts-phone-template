@@ -34,13 +34,13 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       port: 8080,
       // port: Number(envInfo.VITE_APP_PORT), // 使用
       open: false,
-      // proxy: {
-      //   '/api': {
-      //     target: 'http://api.vikingship.xyz/api',
-      //     changeOrigin: true,
-      //     rewrite: path => path.replace(/^\/api/, '')
-      //   }
-      // }
+      proxy: {
+        '/text': {
+          target: 'https://restapi.amap.com/v5/place/text',
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/text/, '')
+        }
+      }
     },
   };
 };
