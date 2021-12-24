@@ -558,13 +558,13 @@
   2. 在控制台注册key
       * ![注册key](/docs/注册key.jpg)
 
-  2. 在项目中新建 MapContainer.vue 文件，用作地图组件。在 MapContainer.vue 地图组件中创建 div 标签作为地图容器 ，并设置地图容器的 id 属性为 container；
+  3. 在项目中新建 MapContainer.vue 文件，用作地图组件。在 MapContainer.vue 地图组件中创建 div 标签作为地图容器 ，并设置地图容器的 id 属性为 container；
       ```
         <template>
             <div id="container"></div>
         </template>
       ```
-  3. 设置地图容器样式
+  4. 设置地图容器样式
       ```
         <style  scoped>
             #container{
@@ -575,7 +575,7 @@
             }
         </style>
       ```
-  4. 详细代码如下：
+  5. 详细代码如下：
       ```
         <template>
           <div class="container">
@@ -670,4 +670,118 @@
         </style>
       ```
 
-  5. 
+# vue3中集成百度地图
+  1. 申请浏览器端key, 具体参考：https://lbsyun.baidu.com/apiconsole/key#/home
+  2. 将script的包放到index.html中,具体参考：https://lbsyun.baidu.com/index.php?title=jspopular3.0/guide/helloworld
+      ```
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <link rel="icon" href="/favicon.ico" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Vite App</title>
+          </head>
+          <body>
+            <div id="app"></div>
+            <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=9UxhL8yiE89j3ryPL2G25msjPFzTnDGd"></script>
+            <script type="module" src="/src/main.ts"></script>
+          </body>
+        </html>
+      ```
+  3. 具体业务代码如下：
+      ```
+        <template>
+          <div class="container">
+            <!-- 导航栏 -->
+            <van-nav-bar class="nav" title="百度地图" left-arrow @click-left="goBack()" />
+            <div id="content" class="content"></div>
+          </div>
+        </template>
+
+        <script setup lang="ts">
+        import { onMounted, reactive, ref } from 'vue';
+        import { useRouter } from 'vue-router';
+
+        const router = useRouter();
+        let map = ref();
+        const message = reactive({
+          title: "海底捞王府井店",
+          address: "地址：北京市东城区王府井大街88号乐天银泰百货八层",
+          lng: null,
+          lat: null
+        })
+
+        onMounted(() => {
+          initMap()
+        })
+
+        function initMap() {
+          map.value = new BMap.Map("content");          // 创建地图实例
+          map.value.centerAndZoom("重庆", 18);          // 设置中心点
+          map.value.enableScrollWheelZoom(true);        // 设置可拖拽
+
+          // 定位
+          let geolocation = new BMap.Geolocation();
+          geolocation.getCurrentPosition(function (r) {
+            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+              console.log("r", r)
+              let point = new BMap.Point(r.point.lng, r.point.lat);
+              let mk = new BMap.Marker(point);
+              map.value.addOverlay(mk);
+              map.value.centerAndZoom(point, 18);
+            }
+            else {
+              alert('failed' + this.getStatus());
+            }
+          }, {
+            timeout: 20000,
+            enableHighAccuracy: true
+          });
+
+          // 点击描点
+          map.value.addEventListener("click", function (e) {
+            let point = new BMap.Point(e.point.lng, e.point.lat);
+            map.value.centerAndZoom(point, 18);          // 设置中心点
+            let marker = new BMap.Marker(point);  // 创建标注
+            map.value.addOverlay(marker);               // 将标注添加到地图中
+            // 添加信息窗口
+            var opts = {
+              width: 200,     // 信息窗口宽度
+              height: 100,     // 信息窗口高度
+              title: message.title, // 信息窗口标题
+              enableMessage: true,//设置允许信息窗发送短息
+            }
+            var infoWindow = new BMap.InfoWindow(message.address, opts);  // 创建信息窗口对象 
+            map.value.openInfoWindow(infoWindow, point); //开启信息窗口
+          })
+        }
+
+        function goBack() {
+          router.back();
+        }
+        </script>
+
+        <style lang="scss" scoped>
+        .content {
+          width: 375px;
+          height: 400px;
+          :deep(.BMap_bubble_title) {
+            font-size: 14px;
+          }
+          :deep(.BMap_bubble_content) {
+            font-size: 14px;
+          }
+        }
+        </style>
+      ```
+  4. 由于生产环境会出现跨域问题，所以使用了vue-jsonp包做跨域处理
+      ```
+        npm install --save vue-jsonp
+
+        import { jsonp } from 'vue-jsonp';
+
+        jsonp(`https://api.map.baidu.com/place/v2/suggestion?callback=callFunc`, params).then(res=>{
+          searchInfo.list = res.result
+        })
+      ```

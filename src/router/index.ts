@@ -44,12 +44,17 @@ const routes = [
   {
     path: '/amapLocation',
     name: 'AmapLocation',
-    component: () => import('@/views/Template/Other/Map/Amap/getLocation.vue'), // 点击获取定位并描点
+    component: () => import('@/views/Template/Other/Map/Amap/getLocation.vue'), // 高德地图点击获取定位并描点
   },
   {
     path: '/bmap',
     name: 'Bmap',
     component: () => import('@/views/Template/Other/Map/Bmap/index.vue'), // 百度地图
+  },
+  {
+    path: '/bmapLocation',
+    name: 'BmapLocation',
+    component: () => import('@/views/Template/Other/Map/Bmap/getLocation.vue'), // 百度地图点击获取定位并描点
   }
 ]
 

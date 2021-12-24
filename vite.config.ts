@@ -39,7 +39,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           target: 'https://restapi.amap.com/v5/place/text',
           changeOrigin: true,
           rewrite: path => path.replace(/^\/text/, '')
-        }
+        },
+        // '/bapi': {
+        //   target: 'https://api.map.baidu.com/',
+        //   changeOrigin: true,
+        //   rewrite: path => path.replace(/^\/bapi/, '')
+        // }
       }
     },
   };
