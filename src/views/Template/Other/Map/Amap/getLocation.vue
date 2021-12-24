@@ -96,7 +96,11 @@ const getKeyWord = throttle((e: any) => {
     keywords: e.target.value,
     key: "b2993222f87de539cc6f0a270f129259"
   }
-  axios.get(`/text${queryParams(params)}`).then(res => {
+  let url = `/text`
+  if(import.meta.env.PROD) {
+    url = `https://restapi.amap.com/v5/place/text`
+  }
+  axios.get(`${url}${queryParams(params)}`).then(res => {
     console.log("res", res)
     searchInfo.list = res.data.pois
   })
